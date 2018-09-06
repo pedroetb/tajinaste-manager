@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { registerLocaleData } from '@angular/common';
-import localeEs from '@angular/common/locales/es';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'; // TODO delete
 
@@ -13,10 +11,19 @@ import { PeopleListComponent } from './people-list/people-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { InMemoryDataService } from './in-memory-data.service';
-import { PersonSearchComponent } from './person-search/person-search.component'; // TODO delete
+import { InMemoryDataService } from './in-memory-data.service'; // TODO delete
+import { PersonSearchComponent } from './person-search/person-search.component';
+import { I18nService } from './i18n.service';
+import { I18nPipe } from './i18n.pipe';
 
-registerLocaleData(localeEs, 'es');
+function setupI18nFactory(service: I18nService): Function {
+
+	return () => new Promise(resolve => {
+
+		service.useLang('es')
+			.subscribe(() => resolve());
+	});
+}
 
 @NgModule({
 	declarations: [
@@ -26,7 +33,8 @@ registerLocaleData(localeEs, 'es');
 		PersonEditionComponent,
 		MessagesComponent,
 		DashboardComponent,
-		PersonSearchComponent
+		PersonSearchComponent,
+		I18nPipe
 	],
 	imports: [
 		BrowserModule,
@@ -34,10 +42,18 @@ registerLocaleData(localeEs, 'es');
 		AppRoutingModule,
 		HttpClientModule,
 		HttpClientInMemoryWebApiModule.forRoot(
-			InMemoryDataService, { dataEncapsulation: false }
+			InMemoryDataService, {
+				dataEncapsulation: false,
+				passThruUnknownUrl: true
+			}
 		)
 	],
-	providers: [],
+	providers: [{
+		provide: APP_INITIALIZER,
+		useFactory: setupI18nFactory,
+		deps: [ I18nService ],
+		multi: true
+	}],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
