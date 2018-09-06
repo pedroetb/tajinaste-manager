@@ -1,0 +1,12 @@
+<h3>Top People</h3>
+<div class="grid grid-pad">
+	<a *ngFor="let person of people"
+		class="col-1-4"
+		routerLink="/people/{{person.id}}">
+		<div class="module person">
+			<h4>{{person.name}}</h4>
+		</div>
+	</a>
+</div>
+
+<app-person-search></app-person-search>

@@ -1,0 +1,13 @@
+<h2>My People</h2>
+
+<button routerLink="/people-add">add</button>
+
+<ul class="people">
+	<li *ngFor="let person of people">
+		<a routerLink="/people/{{person.id}}">
+			<span class="badge">{{person.id}}</span> {{person.name}}
+		</a>
+		<button class="delete" title="delete"
+			(click)="delete(person)">x</button>
+	</li>
+</ul>

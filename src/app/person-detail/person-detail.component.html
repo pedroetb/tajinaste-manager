@@ -1,0 +1,14 @@
+<div *ngIf="person">
+	<h2>
+		{{person.name | uppercase}} Details
+	</h2>
+	<div>
+		<span>id: </span>{{person.id}}
+	</div>
+	<div>
+		<span>name: </span>{{person.name}}
+	</div>
+</div>
+
+<button (click)="goBack()">go back</button>
+<button *ngIf="person" routerLink="/people-edit/{{person.id}}">edit</button>
