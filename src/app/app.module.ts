@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'; // TODO delete
 
 import { AppComponent } from './app.component';
 import { PersonDetailComponent } from './person-detail/person-detail.component';
@@ -11,19 +10,11 @@ import { PeopleListComponent } from './people-list/people-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { InMemoryDataService } from './in-memory-data.service'; // TODO delete
 import { PersonSearchComponent } from './person-search/person-search.component';
-import { I18nService } from './i18n.service';
-import { I18nPipe } from './i18n.pipe';
-
-function setupI18nFactory(service: I18nService): Function {
-
-	return () => new Promise(resolve => {
-
-		service.useLang('es')
-			.subscribe(() => resolve());
-	});
-}
+import { I18nPipe } from './i18n/i18n.pipe';
+import { AppInitializerProviders } from './app-initializers';
+import { HttpInterceptorProviders } from './http-interceptors';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
 	declarations: [
@@ -34,26 +25,20 @@ function setupI18nFactory(service: I18nService): Function {
 		MessagesComponent,
 		DashboardComponent,
 		PersonSearchComponent,
-		I18nPipe
+		I18nPipe,
+		LoginComponent
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
+		ReactiveFormsModule,
 		AppRoutingModule,
-		HttpClientModule,
-		HttpClientInMemoryWebApiModule.forRoot(
-			InMemoryDataService, {
-				dataEncapsulation: false,
-				passThruUnknownUrl: true
-			}
-		)
+		HttpClientModule
 	],
-	providers: [{
-		provide: APP_INITIALIZER,
-		useFactory: setupI18nFactory,
-		deps: [ I18nService ],
-		multi: true
-	}],
+	providers: [
+		AppInitializerProviders,
+		HttpInterceptorProviders
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

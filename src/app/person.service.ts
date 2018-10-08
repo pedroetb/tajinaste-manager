@@ -5,10 +5,13 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Person } from './person';
 import { MessageService } from './message.service';
+import { AuthService } from './auth.service';
 
-const httpOptions = {
+const writeHttpOptions = {
 	headers: new HttpHeaders({
-		'Content-Type': 'application/json'
+		'Content-Type': 'application/json',
+		'Accept': 'application/vnd.pgrst.object+json',
+		'Prefer': 'return=representation'
 	})
 };
 
@@ -18,15 +21,20 @@ const httpOptions = {
 export class PersonService {
 
 	private peopleUrl = 'api/people';
+	private listFields = 'id,name';
+	private detailFields = 'id,uuid,name,surname,entry,federated,photo';
 
 	constructor(
 		private http: HttpClient,
-		private messageService: MessageService
+		private messageService: MessageService,
+		private authService: AuthService
 	) { }
 
 	getPeople(): Observable<Person[]> {
 
-		return this.http.get<Person[]>(this.peopleUrl)
+		const url = `${this.peopleUrl}?select=${this.listFields}`;
+
+		return this.http.get<Person[]>(url)
 			.pipe(
 				tap(() => this.log('fetched people')),
 				catchError(this.handleError<Person[]>('getPeople', []))
@@ -35,9 +43,16 @@ export class PersonService {
 
 	getPerson(id: number): Observable<Person> {
 
-		const url = `${this.peopleUrl}/${id}`;
+		const params = this.authService.isAdmin() ? `/${id}` : `?select=${this.detailFields}&id=eq.${id}`;
+		const url = `${this.peopleUrl}${params}`;
 
-		return this.http.get<Person>(url)
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Accept': 'application/vnd.pgrst.object+json'
+			})
+		};
+
+		return this.http.get<Person>(url, httpOptions)
 			.pipe(
 				tap(() => this.log(`fetched person id=${id}`)),
 				catchError(this.handleError<Person>('getPerson id=${id}'))
@@ -46,7 +61,7 @@ export class PersonService {
 
 	createPerson(person: Person): Observable<Person> {
 
-		return this.http.post<Person>(this.peopleUrl, person, httpOptions)
+		return this.http.post<Person>(this.peopleUrl, person, writeHttpOptions)
 			.pipe(
 				tap((person: Person) => this.log(`created person id=${person.id}`)),
 				catchError(this.handleError<Person>('createPerson'))
@@ -58,7 +73,7 @@ export class PersonService {
 		const id = person.id;
 		const url = `${this.peopleUrl}/${id}`;
 
-		return this.http.put<Person>(url, person, httpOptions)
+		return this.http.patch<Person>(url, person, writeHttpOptions)
 			.pipe(
 				tap(() => this.log(`updated person id=${id}`)),
 				catchError(this.handleError<Person>('updatePerson'))
@@ -70,7 +85,7 @@ export class PersonService {
 		const id = typeof person === 'number' ? person : person.id;
 		const url = `${this.peopleUrl}/${id}`;
 
-		return this.http.delete<Person>(url, httpOptions)
+		return this.http.delete<Person>(url, writeHttpOptions)
 			.pipe(
 				tap(() => this.log(`deleted person id=${id}`)),
 				catchError(this.handleError<Person>('deletePerson'))
@@ -83,7 +98,7 @@ export class PersonService {
 		if (!nameValue) {
 			return of([]);
 		}
-		const url = `${this.peopleUrl}/?name=${nameValue}`;
+		const url = `${this.peopleUrl}?select=${this.detailFields}&name=ilike.*${nameValue}*`;
 
 		return this.http.get<Person[]>(url)
 			.pipe(

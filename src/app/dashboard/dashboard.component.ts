@@ -21,6 +21,6 @@ export class DashboardComponent implements OnInit {
 	getPeople(): void {
 
 		this.personService.getPeople()
-			.subscribe(people => this.people = people.slice(1, 5));
+			.subscribe(people => this.people = people.slice(0, 5));
 	}
 }
