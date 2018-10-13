@@ -1,0 +1,9 @@
+<button mat-icon-button matTooltip="{{'language' | i18n}}" [matMenuTriggerFor]="menu">
+	<mat-icon>language</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+	<button mat-menu-item *ngFor="let language of languages | keyvalue"
+		(click)="setLang(language.key)">
+		<span>{{language.value | i18n | titlecase}}</span>
+	</button>
+</mat-menu>

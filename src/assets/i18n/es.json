@@ -1,3 +1,6 @@
 {
-	"dashboardTitle": "Gente top"
+	"dashboardTitle": "Gente top",
+	"email": "email",
+	"password": "contraseña",
+	"submit": "aceptar"
 }

@@ -1,14 +1,24 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-	<div class="form-field">
-		<label>Email:</label>
-		<input name="email" autocomplete="username" formControlName="email">
-	</div>
-	<div class="form-field">
-		<label>Password:</label>
-		<input name="password" autocomplete="current-password" formControlName="password"
-			type="password">
-	</div>
-	<div class="form-buttons">
-		<button type="submit" [disabled]="!loginForm.valid">Submit</button>
-	</div>
-</form>
+<div class="loginContainer">
+	<mat-card>
+		<form [formGroup]="form" (ngSubmit)="login()">
+			<mat-form-field class="fullWidthInput">
+				<input matInput required
+					placeholder="{{ 'email' | i18n | titlecase }}"
+					autocomplete="username"
+					formControlName="email">
+			</mat-form-field>
+			<mat-form-field class="fullWidthInput">
+				<input matInput required
+					placeholder="{{ 'password' | i18n | titlecase }}"
+					autocomplete="current-password"
+					formControlName="password">
+			</mat-form-field>
+			<button mat-raised-button color="primary" [disabled]="!form.valid">
+				{{ 'submit' | i18n | titlecase }}
+			</button>
+		</form>
+		<mat-card-footer>
+			<app-language-menu></app-language-menu>
+		</mat-card-footer>
+	</mat-card>
+</div>

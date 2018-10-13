@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+
+	<span>
+		<button mat-icon-button *ngIf="mobileMode"
+			matTooltip="{{'toggleSidebar' | i18n}}"
+			(click)="toggleSidebar()" class="toogleSidebar">
+			<mat-icon>menu</mat-icon>
+		</button>
+		<button mat-icon-button matTooltip="{{'topbarLogoTooltip' | i18n}}" routerLink="/">
+			<img src="assets/img/logo.svg" class="topbarLogo">
+		</button>
+		<span class="topbarTitle">Tajinaste Manager</span>
+	</span>
+	<span>
+		<app-language-menu></app-language-menu>
+		<button mat-icon-button matTooltip="{{'logout' | i18n}}" (click)="logout()">
+			<mat-icon>power_settings_new</mat-icon>
+		</button>
+	</span>
+</mat-toolbar>

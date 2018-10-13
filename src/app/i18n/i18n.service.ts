@@ -12,12 +12,26 @@ export class I18nService {
 
 	data: any = {};
 
+	languages = {
+		es: 'spanish',
+		en: 'english'
+	}
+
 	constructor(
 		private http: HttpClient,
 		private messageService: MessageService
 	) { }
 
+	getLangs() {
+
+		return this.languages;
+	}
+
 	useLang(lang: string): Observable<{}> {
+
+		if (!this.languages.hasOwnProperty(lang)) {
+			this.log(`language '${lang}' not found`);
+		}
 
 		const langPath = `assets/i18n/${lang}.json`;
 

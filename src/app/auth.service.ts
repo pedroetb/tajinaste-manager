@@ -1,7 +1,7 @@
 import * as moment from "moment";
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap, shareReplay } from 'rxjs/operators';
 
 import { MessageService } from './message.service';
@@ -11,7 +11,8 @@ import { MessageService } from './message.service';
 })
 export class AuthService {
 
-	private authUrl = 'http://localhost:3001/login';
+	private authUrl = 'auth/login';
+	private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.checkIsLoggedIn());
 
 	constructor(
 		private http: HttpClient,
@@ -34,6 +35,7 @@ export class AuthService {
 					localStorage.setItem('name', res.name);
 					localStorage.setItem('photo', res.photo);
 
+					this.loggedIn.next(true);
 					this.log(`Logged in user "${email}"`);
 				}),
 				catchError(this.handleError<any>('login', []))
@@ -42,20 +44,30 @@ export class AuthService {
 
 	logout() {
 
+		const email = localStorage.getItem('email');
+
 		localStorage.removeItem('token');
 		localStorage.removeItem('tokenExpiry');
 		localStorage.removeItem('role');
 		localStorage.removeItem('email');
 		localStorage.removeItem('name');
 		localStorage.removeItem('photo');
+
+		this.loggedIn.next(false);
+		this.log(`Logged out user "${email}"`);
 	}
 
-	isLoggedIn() {
+	checkIsLoggedIn() {
 
 		const token = localStorage.getItem('token');
 		const tokenExpiry = localStorage.getItem('tokenExpiry');
 
 		return !!token && (!tokenExpiry || moment().isBefore(JSON.parse(tokenExpiry)));
+	}
+
+	observeIsLoggedIn(): BehaviorSubject<boolean> {
+
+		return this.loggedIn;
 	}
 
 	isAdmin() {

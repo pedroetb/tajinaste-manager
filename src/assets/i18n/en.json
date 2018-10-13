@@ -1,3 +1,6 @@
 {
-	"dashboardTitle": "Top people"
+	"dashboardTitle": "Top people",
+	"email": "email",
+	"password": "password",
+	"submit": "submit"
 }
