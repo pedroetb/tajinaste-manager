@@ -1,13 +1,48 @@
 <h2>My People</h2>
 
-<button routerLink="/people-add">add</button>
+<mat-toolbar class="listToolbar">
+	<button mat-raised-button color="primary" matTooltip="{{'add' | i18n}}" routerLink="/people-add">
+		<mat-icon>add</mat-icon>
+	</button>
+	<mat-form-field>
+		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'filter' | i18n | titlecase}}">
+	</mat-form-field>
+</mat-toolbar>
 
-<ul class="people">
-	<li *ngFor="let person of people">
-		<a routerLink="/people/{{person.id}}">
-			<span class="badge">{{person.id}}</span> {{person.name}}
-		</a>
-		<button class="delete" title="delete"
-			(click)="delete(person)">x</button>
-	</li>
-</ul>
+<mat-table [dataSource]="dataSource" matSort>
+	<ng-container matColumnDef="photo">
+		<mat-header-cell *matHeaderCellDef>photo</mat-header-cell>
+		<mat-cell *matCellDef="let person">
+			<img *ngIf="person.photo" matListAvatar src="{{person.photo}}">
+			<mat-icon *ngIf="!person.photo" matListIcon>person</mat-icon>
+		</mat-cell>
+	</ng-container>
+	<ng-container matColumnDef="name">
+		<mat-header-cell *matHeaderCellDef mat-sort-header>name</mat-header-cell>
+		<mat-cell *matCellDef="let person">{{person.name}}</mat-cell>
+	</ng-container>
+	<ng-container matColumnDef="surname">
+		<mat-header-cell *matHeaderCellDef mat-sort-header>surname</mat-header-cell>
+		<mat-cell *matCellDef="let person">{{person.surname}}</mat-cell>
+	</ng-container>
+	<ng-container matColumnDef="entry">
+		<mat-header-cell *matHeaderCellDef mat-sort-header>entry</mat-header-cell>
+		<mat-cell *matCellDef="let person">{{person.entry}}</mat-cell>
+	</ng-container>
+	<ng-container matColumnDef="actions">
+		<mat-header-cell *matHeaderCellDef>actions</mat-header-cell>
+		<mat-cell *matCellDef="let person">
+			<button mat-icon-button color="primary" matTooltip="{{'details' | i18n}}" routerLink="/people/{{person.id}}">
+				<mat-icon>info</mat-icon>
+			</button>
+			<button mat-icon-button color="primary" matTooltip="{{'edit' | i18n}}" routerLink="/people-edit/{{person.id}}">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<button mat-icon-button color="warn" matTooltip="{{'delete' | i18n}}" (click)="delete(person)">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</mat-cell>
+	</ng-container>
+	<mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+	<mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>

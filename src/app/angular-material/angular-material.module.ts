@@ -10,9 +10,11 @@ import {
 	MatSidenavModule,
 	MatListModule,
 	MatRadioModule,
-	MatTooltipModule
+	MatTooltipModule,
+	MatSnackBarModule,
+	MatTableModule,
+	MatSortModule
 } from '@angular/material';
-import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
 	exports: [
@@ -26,7 +28,9 @@ import { LayoutModule } from '@angular/cdk/layout';
 		MatListModule,
 		MatRadioModule,
 		MatTooltipModule,
-		LayoutModule
+		MatSnackBarModule,
+		MatTableModule,
+		MatSortModule
 	]
 })
 export class AngularMaterialModule { }

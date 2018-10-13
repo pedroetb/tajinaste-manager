@@ -21,7 +21,7 @@ const writeHttpOptions = {
 export class PersonService {
 
 	private peopleUrl = 'api/people';
-	private listFields = 'id,name';
+	private listFields = 'id,name,surname,entry,photo';
 	private detailFields = 'id,uuid,name,surname,entry,federated,photo';
 
 	constructor(
