@@ -1,8 +1,8 @@
 <h2>My People</h2>
 
 <mat-toolbar class="listToolbar">
-	<button mat-raised-button color="primary" matTooltip="{{'add' | i18n}}" routerLink="/people-add">
-		<mat-icon>add</mat-icon>
+	<button mat-icon-button color="primary" matTooltip="{{'add' | i18n}}" routerLink="/people-add">
+		<mat-icon>add_circle</mat-icon>
 	</button>
 	<mat-form-field>
 		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'filter' | i18n | titlecase}}">
