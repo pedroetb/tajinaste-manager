@@ -1,31 +1,119 @@
-<div *ngIf="person">
-	<h2>
-		{{person.name | uppercase}} Edit
-	</h2>
-	<div>
-		<span>id: </span>{{person.id}}
-	</div>
-	<div>
-		<label>name:
-			<input [(ngModel)]="person.name" placeholder="name"/>
-		</label>
-	</div>
-	<div>
-		<label>surname:
-			<input [(ngModel)]="person.surname" placeholder="surname"/>
-		</label>
-	</div>
-	<div>
-		<label>dni:
-			<input [(ngModel)]="person.dni" placeholder="dni"/>
-		</label>
-	</div>
-	<div>
-		<label>entry:
-			<input [(ngModel)]="person.entry" placeholder="entry"/>
-		</label>
-	</div>
-</div>
+<mat-toolbar>
+	<button mat-icon-button class="backButton" color="primary" matTooltip="{{'back' | i18n}}" (click)="goBack()">
+		<mat-icon>undo</mat-icon>
+	</button>
+	<ng-container *ngIf="form.get('name') && form.get('name').value">
+		<h2>{{form.get('name').value | uppercase}} {{'edit' | i18n}}</h2>
+	</ng-container>
+	<ng-container *ngIf="form.get('name') && !form.get('name').value">
+		<h2> {{'person' | i18n | titlecase}} {{'add' | i18n}}</h2>
+	</ng-container>
+</mat-toolbar>
 
-<button (click)="goBack()">cancel</button>
-<button *ngIf="person" (click)="submit()">submit</button>
+<form autocomplete="off" [formGroup]="form">
+	<mat-form-field>
+		<input matInput
+			required
+			placeholder="{{'name' | i18n | titlecase}}"
+			formControlName="name">
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput
+			required
+			placeholder="{{'surname' | i18n | titlecase}}"
+			formControlName="surname">
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput
+			required
+			placeholder="{{'dni' | i18n | uppercase}}"
+			formControlName="dni">
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput
+			required
+			[matDatepicker]="entryPicker"
+			placeholder="{{'entry' | i18n | titlecase}}"
+			formControlName="entry">
+		<mat-datepicker-toggle matSuffix [for]="entryPicker"></mat-datepicker-toggle>
+		<mat-datepicker #entryPicker></mat-datepicker>
+	</mat-form-field>
+	<mat-list>
+		<mat-checkbox formControlName="regular">
+			{{'regular' | i18n | titlecase}}
+		</mat-checkbox>
+		<mat-checkbox formControlName="federated">
+			{{'federated' | i18n | titlecase}}
+		</mat-checkbox>
+	</mat-list>
+	<mat-form-field>
+		<input matInput
+			placeholder="{{'email' | i18n | titlecase}}"
+			formControlName="email">
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput
+			[matDatepicker]="birthPicker"
+			placeholder="{{'birth' | i18n | titlecase}}"
+			formControlName="birth">
+		<mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
+		<mat-datepicker #birthPicker></mat-datepicker>
+	</mat-form-field>
+	<mat-list>
+		<h3 mat-subheader>{{'sex' | i18n | titlecase}}</h3>
+		<mat-radio-group formControlName="sex">
+			<mat-radio-button value="f">{{'female' | i18n | titlecase}}</mat-radio-button>
+			<mat-radio-button value="m">{{'male' | i18n | titlecase}}</mat-radio-button>
+			<mat-radio-button value="o">{{'other' | i18n | titlecase}}</mat-radio-button>
+		</mat-radio-group>
+	</mat-list>
+	<mat-form-field>
+		<input matInput
+			placeholder="{{'cp' | i18n | uppercase}}"
+			formControlName="cp">
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput
+			placeholder="{{'province' | i18n | titlecase}}"
+			formControlName="province">
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput
+			placeholder="{{'locality' | i18n | titlecase}}"
+			formControlName="locality">
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput
+			placeholder="{{'address' | i18n | titlecase}}"
+			formControlName="address">
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput
+			placeholder="{{'phone 1' | i18n | titlecase}}"
+			formControlName="phone1">
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput
+			placeholder="{{'phone 2' | i18n | titlecase}}"
+			formControlName="phone2">
+	</mat-form-field>
+	<mat-form-field>
+		<input matInput
+			placeholder="{{'occupation' | i18n | titlecase}}"
+			formControlName="occupation">
+	</mat-form-field>
+	<mat-form-field>
+		<textarea matInput
+			placeholder="{{'notes' | i18n | titlecase}}"
+			formControlName="notes"></textarea>
+	</mat-form-field>
+</form>
+
+<div class="buttonRow">
+	<button mat-mini-fab color="primary" matTooltip="{{'submit' | i18n}}" (click)="submit()">
+		<mat-icon>done</mat-icon>
+	</button>
+	<button mat-mini-fab color="warn" matTooltip="{{'back' | i18n}}" (click)="goBack()">
+		<mat-icon>undo</mat-icon>
+	</button>
+</div>

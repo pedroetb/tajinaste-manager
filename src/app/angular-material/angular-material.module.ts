@@ -13,8 +13,11 @@ import {
 	MatTooltipModule,
 	MatSnackBarModule,
 	MatTableModule,
-	MatSortModule
+	MatSortModule,
+	MatDatepickerModule,
+	MatCheckboxModule
 } from '@angular/material';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
 	exports: [
@@ -30,7 +33,10 @@ import {
 		MatTooltipModule,
 		MatSnackBarModule,
 		MatTableModule,
-		MatSortModule
+		MatSortModule,
+		MatDatepickerModule,
+		MatMomentDateModule,
+		MatCheckboxModule
 	]
 })
 export class AngularMaterialModule { }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { DateAdapter } from '@angular/material/core';
 
 import { MessageService } from '../message.service';
 
@@ -19,7 +20,8 @@ export class I18nService {
 
 	constructor(
 		private http: HttpClient,
-		private messageService: MessageService
+		private messageService: MessageService,
+		private adapter: DateAdapter<any>
 	) { }
 
 	getLangs() {
@@ -28,6 +30,8 @@ export class I18nService {
 	}
 
 	useLang(lang: string): Observable<{}> {
+
+		this.adapter.setLocale(lang);
 
 		if (!this.languages.hasOwnProperty(lang)) {
 			this.log(`language '${lang}' not found`);
