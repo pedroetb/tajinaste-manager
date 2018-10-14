@@ -1,13 +1,19 @@
-<div *ngIf="person">
-	<h2>
-		{{person.name | uppercase}} Details
-	</h2>
-	<div *ngFor="let personProp of person | keyvalue">
-		<div>
-			<span>{{personProp.key | uppercase}}: </span>{{personProp.value}}
-		</div>
-	</div>
-</div>
+<mat-toolbar>
+	<button mat-icon-button class="backButton" color="primary" matTooltip="{{'back' | i18n}}" (click)="goBack()">
+		<mat-icon>undo</mat-icon>
+	</button>
+	<ng-container *ngIf="person">
+		<h2>{{person.name | uppercase}} Details</h2>
+		<button mat-icon-button matTooltip="{{'edit' | i18n}}" routerLink="/people-edit/{{person.id}}">
+			<mat-icon>edit</mat-icon>
+		</button>
+	</ng-container>
+</mat-toolbar>
 
-<button (click)="goBack()">go back</button>
-<button *ngIf="person" routerLink="/people-edit/{{person.id}}">edit</button>
+<mat-list *ngIf="person">
+	<mat-list-item *ngFor="let personProp of person | keyvalue">
+		<mat-icon matListIcon>navigate_next</mat-icon>
+		<h3 matLine>{{personProp.key | uppercase}}</h3>
+		<span matLine>{{personProp.value}}</span>
+	</mat-list-item>
+</mat-list>

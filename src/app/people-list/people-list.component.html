@@ -1,10 +1,11 @@
-<h2>My People</h2>
-
 <mat-toolbar class="listToolbar">
-	<button mat-icon-button color="primary" matTooltip="{{'add' | i18n}}" routerLink="/people-add">
-		<mat-icon>add_circle</mat-icon>
-	</button>
-	<mat-form-field>
+	<div class="listToolbarTitle">
+		<h2>My People</h2>
+		<button mat-icon-button color="primary" matTooltip="{{'add' | i18n}}" routerLink="/people-add">
+			<mat-icon>add_circle</mat-icon>
+		</button>
+	</div>
+	<mat-form-field class="listToolbarFilter">
 		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'filter' | i18n | titlecase}}">
 	</mat-form-field>
 </mat-toolbar>
