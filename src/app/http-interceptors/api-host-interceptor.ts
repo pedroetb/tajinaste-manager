@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class ApiHostInterceptor implements HttpInterceptor {
 
-	private apiHost = 'http://localhost:3000';
+	private apiHost = environment.apiHost;
 	private apiPrefixRegex = /^api(\/.*)$/;
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
