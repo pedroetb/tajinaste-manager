@@ -11,9 +11,14 @@ function setupI18nFactory(service: I18nService): Function {
 	});
 }
 
-export const AppInitializerProviders = [{
+const AppInitializerProviders = [{
 	provide: APP_INITIALIZER,
 	useFactory: setupI18nFactory,
 	deps: [ I18nService ],
 	multi: true
 }];
+
+export {
+	setupI18nFactory,
+	AppInitializerProviders
+};
