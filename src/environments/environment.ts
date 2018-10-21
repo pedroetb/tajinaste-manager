@@ -4,8 +4,8 @@
 
 export const environment = {
 	production: false,
-	apiHost: 'http://localhost:3000',
-	authHost: 'http://localhost:3001'
+	apiOrigin: 'http://localhost:3000',
+	authOrigin: 'http://localhost:3001'
 };
 
 /*

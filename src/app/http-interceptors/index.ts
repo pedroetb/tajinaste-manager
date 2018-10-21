@@ -1,9 +1,9 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ApiAuthInterceptor } from './api-auth-interceptor';
-import { ApiHostInterceptor } from './api-host-interceptor';
+import { ApiOriginInterceptor } from './api-origin-interceptor';
 import { ApiIdRequestInterceptor } from './api-id-request-interceptor';
-import { AuthHostInterceptor } from './auth-host-interceptor';
+import { AuthOriginInterceptor } from './auth-origin-interceptor';
 
 export const HttpInterceptorProviders = [{
 	provide: HTTP_INTERCEPTORS,
@@ -15,10 +15,10 @@ export const HttpInterceptorProviders = [{
 	multi: true
 },{
 	provide: HTTP_INTERCEPTORS,
-	useClass: ApiHostInterceptor,
+	useClass: ApiOriginInterceptor,
 	multi: true
 },{
 	provide: HTTP_INTERCEPTORS,
-	useClass: AuthHostInterceptor,
+	useClass: AuthOriginInterceptor,
 	multi: true
 }];

@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class AuthHostInterceptor implements HttpInterceptor {
+export class AuthOriginInterceptor implements HttpInterceptor {
 
-	private authHost = environment.authHost;
+	private authOrigin = environment.authOrigin;
 	private authPrefixRegex = /^auth(\/.*)$/;
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -16,7 +16,7 @@ export class AuthHostInterceptor implements HttpInterceptor {
 
 		if (authPrefixMatch) {
 			const newReq = req.clone({
-				url: `${this.authHost}${authPrefixMatch[1]}`
+				url: `${this.authOrigin}${authPrefixMatch[1]}`
 			});
 
 			return next.handle(newReq);

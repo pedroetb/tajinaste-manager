@@ -1,5 +1,5 @@
 export const environment = {
 	production: true,
-	apiHost: 'http://10.0.0.100:3000',
-	authHost: 'http://10.0.0.100:3001'
+	apiOrigin: '<your_api_origin>',
+	authOrigin: '<your_auth_origin>'
 };
