@@ -24,27 +24,27 @@ export class PersonEditionComponent implements OnInit {
 	ngOnInit() {
 
 		this.form = this.fb.group({
-			id: [''],
-			uuid: [{value: '', disabled: true}],
-			name: ['', Validators.required],
-			surname: ['', Validators.required],
-			dni: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
-			entry: ['', Validators.required],
-			email: ['', Validators.email],
-			phone1: [''],
-			phone2: [''],
-			occupation: [''],
-			notes: [''],
-			province: [''],
-			locality: [''],
-			cp: ['', [Validators.minLength(5), Validators.maxLength(5)]],
-			address: [''],
-			birth: [''],
-			regular: [''],
-			federated: [''],
-			photo: ['', [Validators.minLength(36), Validators.maxLength(36)]],
-			created: [{value: '', disabled: true}],
-			sex: ['']
+			id: [null],
+			uuid: [{value: null, disabled: true}],
+			name: [null, Validators.required],
+			surname: [null, Validators.required],
+			dni: [null, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+			entry: [null, Validators.required],
+			email: [null, Validators.email],
+			phone1: [null],
+			phone2: [null],
+			occupation: [null],
+			notes: [null],
+			province: [null],
+			locality: [null],
+			cp: [null, [Validators.minLength(5), Validators.maxLength(5)]],
+			address: [null],
+			birth: [null],
+			regular: [false],
+			federated: [false],
+			photo: [null, [Validators.minLength(36), Validators.maxLength(36)]],
+			created: [{value: null, disabled: true}],
+			sex: [null]
 		});
 
 		this.getPerson();
@@ -69,9 +69,17 @@ export class PersonEditionComponent implements OnInit {
 
 	submit(): void {
 
-		let method = !this.form.get('id').value ? 'createPerson' : 'updatePerson';
+		let value = this.form.value;
+		let method;
 
-		this.personService[method](this.form.value)
+		if (!this.form.get('id').value) {
+			method = 'createPerson';
+			delete value.id;
+		} else {
+			method = 'updatePerson';
+		}
+
+		this.personService[method](value)
 			.subscribe(() => this.goBack());
 	}
 }
