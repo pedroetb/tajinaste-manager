@@ -15,7 +15,7 @@
    viewBox="0 0 757 757"
    version="1.1"
    id="svg229"
-   sodipodi:docname="dibujo.svg"
+   sodipodi:docname="logo.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <defs
      id="defs223" />
@@ -27,16 +27,20 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.24748737"
-     inkscape:cx="-257.32886"
+     inkscape:cx="-443.76649"
      inkscape:cy="1246.6754"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
-     showgrid="false"
+     showgrid="true"
      inkscape:window-width="2560"
      inkscape:window-height="1025"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid843" />
+  </sodipodi:namedview>
   <metadata
      id="metadata226">
     <rdf:RDF>
@@ -45,6 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -179,5 +184,20 @@
          xlink:href="#path46-6"
          id="textPath1183"
          startOffset="13%">T A J I N A S T E</textPath></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-690.79865"
+       y="175.23087"
+       id="text951"><tspan
+         sodipodi:role="line"
+         x="-690.79865"
+         y="175.23087"
+         id="tspan949"
+         style="stroke-width:0.26458332px"><tspan
+           x="-690.79865"
+           y="175.23087"
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;font-family:Roboto;-inkscape-font-specification:'Roboto, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332px"
+           id="tspan947">Morales</tspan></tspan></text>
   </g>
 </svg>
