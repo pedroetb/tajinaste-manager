@@ -2,7 +2,7 @@
 
 <mat-sidenav-container>
 	<mat-sidenav #sidebar mode="{{mobileMode ? 'over' : 'side'}}" opened="{{!mobileMode}}">
-		<app-sidebar></app-sidebar>
+		<app-sidebar (click)="mobileMode && sidebar.close()"></app-sidebar>
 	</mat-sidenav>
 	<mat-sidenav-content>
 		<router-outlet></router-outlet>
