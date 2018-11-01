@@ -20,9 +20,55 @@ const writeHttpOptions = {
 })
 export class PersonService {
 
-	private peopleUrl = 'api/people';
-	private listFields = 'id,name,surname,entry,photo';
-	private detailFields = 'id,uuid,name,surname,entry,federated,photo';
+	private url = 'api/people';
+	private fields = [{
+		name: 'id',
+		public: true
+	},{
+		name: 'uuid',
+		public: true
+	},{
+		name: 'dni'
+	},{
+		name: 'name',
+		public: true
+	},{
+		name: 'surname',
+		public: true
+	},{
+		name: 'sex'
+	},{
+		name: 'email'
+	},{
+		name: 'phone1'
+	},{
+		name: 'phone2'
+	},{
+		name: 'occupation'
+	},{
+		name: 'notes'
+	},{
+		name: 'province'
+	},{
+		name: 'locality'
+	},{
+		name: 'cp'
+	},{
+		name: 'address'
+	},{
+		name: 'birth'
+	},{
+		name: 'entry',
+		public: true
+	},{
+		name: 'regular'
+	},{
+		name: 'federated',
+		public: true
+	},{
+		name: 'photo',
+		public: true
+	}];
 
 	constructor(
 		private http: HttpClient,
@@ -32,7 +78,7 @@ export class PersonService {
 
 	getPeople(): Observable<Person[]> {
 
-		const url = `${this.peopleUrl}?select=${this.listFields}`;
+		const url = `${this.url}?select=${this.getFieldNames()}`;
 
 		return this.http.get<Person[]>(url)
 			.pipe(
@@ -43,8 +89,8 @@ export class PersonService {
 
 	getPerson(id: number): Observable<Person> {
 
-		const params = this.authService.isAdmin() ? `/${id}` : `?select=${this.detailFields}&id=eq.${id}`;
-		const url = `${this.peopleUrl}${params}`;
+		const params = this.authService.isAdmin() ? `/${id}` : `?select=${this.getFieldNames()}&id=eq.${id}`;
+		const url = `${this.url}${params}`;
 
 		const httpOptions = {
 			headers: new HttpHeaders({
@@ -61,7 +107,7 @@ export class PersonService {
 
 	createPerson(person: Person): Observable<Person> {
 
-		return this.http.post<Person>(this.peopleUrl, person, writeHttpOptions)
+		return this.http.post<Person>(this.url, person, writeHttpOptions)
 			.pipe(
 				tap((person: Person) => this.log(`created person id=${person.id}`)),
 				catchError(this.handleError<Person>('createPerson'))
@@ -71,7 +117,7 @@ export class PersonService {
 	updatePerson(person: Person): Observable<Person> {
 
 		const id = person.id;
-		const url = `${this.peopleUrl}/${id}`;
+		const url = `${this.url}/${id}`;
 
 		return this.http.patch<Person>(url, person, writeHttpOptions)
 			.pipe(
@@ -83,7 +129,7 @@ export class PersonService {
 	deletePerson(person: Person | number): Observable<Person> {
 
 		const id = typeof person === 'number' ? person : person.id;
-		const url = `${this.peopleUrl}/${id}`;
+		const url = `${this.url}/${id}`;
 
 		return this.http.delete<Person>(url, writeHttpOptions)
 			.pipe(
@@ -98,13 +144,23 @@ export class PersonService {
 		if (!nameValue) {
 			return of([]);
 		}
-		const url = `${this.peopleUrl}?select=${this.detailFields}&name=ilike.*${nameValue}*`;
+		const url = `${this.url}?select=${this.getFieldNames()}&name=ilike.*${nameValue}*`;
 
 		return this.http.get<Person[]>(url)
 			.pipe(
 				tap(() => this.log(`found people matching "${nameValue}"`)),
 				catchError(this.handleError<Person[]>('searchPeople', []))
 			);
+	}
+
+	getFields() {
+
+		return this.authService.isAdmin() ? this.fields : this.fields.filter((field) => field.public);
+	}
+
+	getFieldNames() {
+
+		return this.getFields().map((field) => field.name);
 	}
 
 	private log(message: string) {

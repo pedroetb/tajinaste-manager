@@ -1,5 +1,6 @@
 export class Person {
 	id: number;
+	uuid: string;
 	dni: string;
 	name: string;
 	surname: string;

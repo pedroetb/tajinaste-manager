@@ -46,6 +46,18 @@ export class I18nService {
 			);
 	}
 
+	translate(key: string) {
+
+		let value = this.data[key];
+
+		if (!value) {
+			//console.warn(`Tried to translate missing key '${key}'`);
+			return key;
+		}
+
+		return value;
+	}
+
 	private log(message: string) {
 
 		this.messageService.add(`I18nService: ${message}`);

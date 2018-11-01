@@ -12,6 +12,6 @@ export class I18nPipe implements PipeTransform {
 
 	transform(value: any, args?: any): any {
 
-		return this.i18n.data[value] || value;
+		return this.i18n.translate(value);
 	}
 }
