@@ -87,10 +87,11 @@ export class PeopleListComponent implements OnInit {
 		show: true,
 		component: 'rowButtons'
 	}];
-	people: Person[];
+	booleanColumns;
 	displayedColumns;
 	availableFields;
 	textFilter = '';
+	people: Person[];
 	dataSource;
 	@ViewChild(MatSort) sort: MatSort;
 
