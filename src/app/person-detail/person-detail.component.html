@@ -4,9 +4,18 @@
 	</button>
 	<ng-container *ngIf="person">
 		<h2>{{person.name | uppercase}} Details</h2>
-		<button mat-icon-button matTooltip="{{'edit' | i18n}}" routerLink="/people-edit/{{person.id}}">
-			<mat-icon>edit</mat-icon>
-		</button>
+		<ng-container *ngIf="authService.isAdmin()">
+			<button mat-icon-button color="accent"
+				matTooltip="{{'edit' | i18n}}"
+				routerLink="/people-edit/{{person.id}}">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<button mat-icon-button color="warn"
+				matTooltip="{{'delete' | i18n}}"
+				(click)="delete(person)">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</ng-container>
 	</ng-container>
 </mat-toolbar>
 

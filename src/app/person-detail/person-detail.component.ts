@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Person } from '../person';
 import { PersonService } from '../person.service';
+import { AuthService } from '../auth.service';
 
 @Component({
 	selector: 'app-person-detail',
@@ -17,6 +18,7 @@ export class PersonDetailComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private personService: PersonService,
+		private authService: AuthService,
 		private location: Location
 	) { }
 
@@ -31,6 +33,14 @@ export class PersonDetailComponent implements OnInit {
 
 		this.personService.getPerson(id)
 			.subscribe(person => this.person = person);
+	}
+
+	delete(person: Person): void {
+
+		this.personService.deletePerson(person)
+			.subscribe(() => {
+				this.goBack();
+			});
 	}
 
 	goBack(): void {
