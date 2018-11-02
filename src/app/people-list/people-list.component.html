@@ -1,27 +1,48 @@
-<mat-toolbar class="listToolbar">
-	<div class="listToolbarTitle">
+<mat-toolbar>
+	<div class="listToolbarLeft">
 		<h2>My People</h2>
 		<button mat-icon-button color="primary" matTooltip="{{'add' | i18n}}" routerLink="/people-add">
 			<mat-icon>add_circle</mat-icon>
 		</button>
+	</div>
 
-		<button mat-icon-button color="primary" matTooltip="{{'fields' | i18n}}" [matMenuTriggerFor]="fieldMenu">
+	<div class="listToolbarRight">
+		<button mat-icon-button color="primary" matTooltip="{{'filter' | i18n}}" [matMenuTriggerFor]="fieldMenu">
 			<mat-icon>visibility</mat-icon>
 		</button>
 		<mat-menu #fieldMenu="matMenu">
-			<ng-container *ngFor="let column of columns">
-				<div mat-menu-item *ngIf="columnIsAllowed(column)"
-					[disabled]="!column.show"
-					(click)="$event.stopPropagation(); toggleColumn(column)">
-					{{ column.name | i18n | titlecase}}
-				</div>
-			</ng-container>
+			<mat-selection-list #fields
+				(click)="$event.stopPropagation()"
+				(selectionChange)="onFieldsChange($event)">
+				<ng-container *ngFor="let column of columns">
+					<mat-list-option *ngIf="columnIsAllowed(column)"
+						[value]="column"
+						[selected]="column.show">
+						{{ column.name | i18n | titlecase}}
+					</mat-list-option>
+				</ng-container>
+			</mat-selection-list>
 		</mat-menu>
-	</div>
 
-	<mat-form-field class="listToolbarFilter">
-		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'filter' | i18n | titlecase}}">
-	</mat-form-field>
+		<button mat-icon-button color="primary" matTooltip="{{'filter' | i18n}}" [matMenuTriggerFor]="filterMenu">
+			<mat-icon>filter_list</mat-icon>
+		</button>
+		<mat-menu #filterMenu="matMenu">
+			<mat-selection-list #booleanFilter
+				[(ngModel)]="booleanFilterValue"
+				(click)="$event.stopPropagation()"
+				(ngModelChange)="onBooleanFilterChange($event)">
+				<mat-list-option *ngFor="let field of booleanColumns"
+					[value]="field">
+					{{ 'only' | i18n | titlecase}} {{ field | i18n}}
+				</mat-list-option>
+			</mat-selection-list>
+		</mat-menu>
+
+		<mat-form-field class="textSearch">
+			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'filter' | i18n | titlecase}}">
+		</mat-form-field>
+	</div>
 </mat-toolbar>
 
 <mat-table [dataSource]="dataSource" matSort>

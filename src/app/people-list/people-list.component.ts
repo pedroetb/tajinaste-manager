@@ -74,12 +74,12 @@ export class PeopleListComponent implements OnInit {
 	},{
 		name: 'regular',
 		sortable: true,
-		show: true,
+		boolean: true,
 		cell: (row) => this.i18n.translate(row.regular ? 'yes' : 'no')
 	},{
 		name: 'federated',
 		sortable: true,
-		show: true,
+		boolean: true,
 		cell: (row) => this.i18n.translate(row.federated ? 'yes' : 'no')
 	},{
 		name: 'actions',
@@ -89,6 +89,7 @@ export class PeopleListComponent implements OnInit {
 	people: Person[];
 	displayedColumns;
 	availableFields;
+	textFilter = '';
 	dataSource;
 	@ViewChild(MatSort) sort: MatSort;
 
@@ -99,6 +100,10 @@ export class PeopleListComponent implements OnInit {
 	}
 
 	ngOnInit() {
+
+		this.booleanColumns = this.columns
+			.filter(column => column.boolean)
+			.map(column => column.name);
 
 		this.sort.sort(<MatSortable>{
 			id: 'entry',
@@ -116,9 +121,15 @@ export class PeopleListComponent implements OnInit {
 
 				this.people = people;
 
-				this.dataSource = new MatTableDataSource(this.people);
-				this.dataSource.sort = this.sort;
+				this.createDataSource(this.people);
 			});
+	}
+
+	createDataSource(data) {
+
+		this.dataSource = new MatTableDataSource(data);
+		this.dataSource.sort = this.sort;
+		this.dataSource.filter = this.textFilter;
 	}
 
 	displayColumns() {
@@ -133,10 +144,32 @@ export class PeopleListComponent implements OnInit {
 		return column.name === 'actions' || this.availableFields.includes(column.name);
 	}
 
-	toggleColumn(column) {
+	onFieldsChange(evt) {
+
+		let column = evt.option.value;
 
 		column.show = !column.show;
 		this.displayColumns();
+	}
+
+	onBooleanFilterChange(value) {
+
+		if (!this.people) {
+			return;
+		}
+
+		let data = this.people.filter(person => {
+
+			for (let field of value) {
+				if (!person[field]) {
+					return false;
+				}
+			}
+
+			return true;
+		});
+
+		this.createDataSource(data);
 	}
 
 	delete(person: Person): void {
@@ -149,6 +182,8 @@ export class PeopleListComponent implements OnInit {
 
 	applyFilter(value: string) {
 
-		this.dataSource.filter = value.trim().toLowerCase();
+		let textFilter = value.trim().toLowerCase();
+		this.dataSource.filter = textFilter;
+		this.textFilter = textFilter;
 	}
 }
