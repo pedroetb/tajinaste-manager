@@ -1,13 +1,16 @@
 <mat-toolbar>
 	<div class="listToolbarLeft">
 		<h2>My People</h2>
-		<button mat-icon-button color="primary" matTooltip="{{'add' | i18n}}" routerLink="/people-add">
+		<button mat-icon-button color="primary"
+			*ngIf="authService.isAdmin()"
+			matTooltip="{{'add' | i18n}}"
+			routerLink="/people-add">
 			<mat-icon>add_circle</mat-icon>
 		</button>
 	</div>
 
 	<div class="listToolbarRight">
-		<button mat-icon-button color="primary" matTooltip="{{'filter' | i18n}}" [matMenuTriggerFor]="fieldMenu">
+		<button mat-icon-button color="primary" matTooltip="{{'fields' | i18n}}" [matMenuTriggerFor]="fieldMenu">
 			<mat-icon>visibility</mat-icon>
 		</button>
 		<mat-menu #fieldMenu="matMenu">
@@ -63,15 +66,23 @@
 				</ng-container>
 
 				<ng-container *ngIf="column.component === 'rowButtons'">
-					<button mat-icon-button color="primary" matTooltip="{{'details' | i18n}}" routerLink="/people/{{row.id}}">
+					<button mat-icon-button color="primary"
+						matTooltip="{{'details' | i18n}}"
+						routerLink="/people/{{row.id}}">
 						<mat-icon>info</mat-icon>
 					</button>
-					<button mat-icon-button color="primary" matTooltip="{{'edit' | i18n}}" routerLink="/people-edit/{{row.id}}">
-						<mat-icon>edit</mat-icon>
-					</button>
-					<button mat-icon-button color="warn" matTooltip="{{'delete' | i18n}}" (click)="delete(row)">
-						<mat-icon>delete</mat-icon>
-					</button>
+					<ng-container *ngIf="authService.isAdmin()">
+						<button mat-icon-button color="primary"
+							matTooltip="{{'edit' | i18n}}"
+							routerLink="/people-edit/{{row.id}}">
+							<mat-icon>edit</mat-icon>
+						</button>
+						<button mat-icon-button color="warn"
+							matTooltip="{{'delete' | i18n}}"
+							(click)="delete(row)">
+							<mat-icon>delete</mat-icon>
+						</button>
+					</ng-container>
 				</ng-container>
 			</ng-container>
 		</mat-cell>

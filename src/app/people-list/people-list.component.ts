@@ -4,6 +4,7 @@ import { MatSort, MatSortable, MatTableDataSource } from '@angular/material';
 import { Person } from '../person';
 import { PersonService } from '../person.service';
 import { I18nService } from '../i18n/i18n.service';
+import { AuthService } from '../auth.service';
 
 @Component({
 	selector: 'app-people-list',
@@ -95,6 +96,7 @@ export class PeopleListComponent implements OnInit {
 
 	constructor(
 		private personService: PersonService,
+		private authService: AuthService,
 		private i18n: I18nService
 	) {
 	}
@@ -174,10 +176,11 @@ export class PeopleListComponent implements OnInit {
 
 	delete(person: Person): void {
 
-		this.people = this.people.filter(p => p !== person);
-
 		this.personService.deletePerson(person)
-			.subscribe();
+			.subscribe(() => {
+				this.people = this.people.filter(p => p !== person);
+				this.createDataSource(this.people);
+			});
 	}
 
 	applyFilter(value: string) {
