@@ -18,7 +18,7 @@ export class PersonDetailComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private personService: PersonService,
-		private authService: AuthService,
+		public authService: AuthService,
 		private location: Location
 	) { }
 

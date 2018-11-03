@@ -88,6 +88,7 @@ export class PeopleListComponent implements OnInit {
 		component: 'rowButtons'
 	}];
 	booleanColumns;
+	booleanFilterValue;
 	displayedColumns;
 	availableFields;
 	textFilter = '';
@@ -97,7 +98,7 @@ export class PeopleListComponent implements OnInit {
 
 	constructor(
 		private personService: PersonService,
-		private authService: AuthService,
+		public authService: AuthService,
 		private i18n: I18nService
 	) {
 	}
