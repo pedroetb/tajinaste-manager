@@ -51,7 +51,9 @@ export class I18nService {
 		let value = this.data[key];
 
 		if (!value) {
-			//console.warn(`Tried to translate missing key '${key}'`);
+			if (value === undefined) {
+				console.warn(`Tried to translate missing key '${key}'`);
+			}
 			return key;
 		}
 

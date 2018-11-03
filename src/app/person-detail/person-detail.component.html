@@ -3,7 +3,7 @@
 		<mat-icon>undo</mat-icon>
 	</button>
 	<ng-container *ngIf="person">
-		<h2>{{person.name | uppercase}} Details</h2>
+		<h2>{{'person details' | i18n | titlecase}}</h2>
 		<ng-container *ngIf="authService.isAdmin()">
 			<button mat-icon-button color="accent"
 				matTooltip="{{'edit' | i18n}}"
@@ -22,7 +22,7 @@
 <mat-list *ngIf="person">
 	<mat-list-item *ngFor="let personProp of person | keyvalue">
 		<mat-icon matListIcon>navigate_next</mat-icon>
-		<h3 matLine>{{personProp.key | uppercase}}</h3>
+		<h3 matLine>{{personProp.key | i18n | uppercase}}</h3>
 		<span matLine>{{personProp.value}}</span>
 	</mat-list-item>
 </mat-list>

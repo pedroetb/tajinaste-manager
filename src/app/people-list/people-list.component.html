@@ -1,6 +1,6 @@
 <mat-toolbar>
 	<div class="listToolbarLeft">
-		<h2>My People</h2>
+		<h2>{{ 'people' | i18n | titlecase}}</h2>
 		<button mat-icon-button color="primary"
 			*ngIf="authService.isAdmin()"
 			matTooltip="{{'add' | i18n}}"
