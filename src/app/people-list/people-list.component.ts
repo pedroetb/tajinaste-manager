@@ -180,6 +180,7 @@ export class PeopleListComponent implements OnInit {
 
 		this.personService.deletePerson(person)
 			.subscribe(() => {
+
 				this.people = this.people.filter(p => p !== person);
 				this.createDataSource(this.people);
 			});
@@ -187,8 +188,6 @@ export class PeopleListComponent implements OnInit {
 
 	applyFilter(value: string) {
 
-		let textFilter = value.trim().toLowerCase();
-		this.dataSource.filter = textFilter;
-		this.textFilter = textFilter;
+		this.dataSource.filter = value.trim().toLowerCase();
 	}
 }

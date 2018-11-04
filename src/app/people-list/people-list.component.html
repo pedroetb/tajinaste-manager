@@ -43,7 +43,16 @@
 		</mat-menu>
 
 		<mat-form-field class="textSearch">
-			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'filter' | i18n | capitalize}}">
+			<input matInput
+				[(ngModel)]="textFilter"
+				(ngModelChange)="applyFilter($event)"
+				placeholder="{{'filter' | i18n | capitalize}}">
+			<button mat-button matSuffix mat-icon-button
+				*ngIf="textFilter"
+				matTooltip="{{'clear' | i18n}}"
+				(click)="textFilter=''; applyFilter(textFilter)">
+				<mat-icon>close</mat-icon>
+			</button>
 		</mat-form-field>
 	</div>
 </mat-toolbar>
