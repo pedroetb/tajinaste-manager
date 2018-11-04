@@ -15,7 +15,8 @@ import {
 	MatTableModule,
 	MatSortModule,
 	MatDatepickerModule,
-	MatCheckboxModule
+	MatCheckboxModule,
+	MatChipsModule
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
@@ -36,7 +37,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 		MatSortModule,
 		MatDatepickerModule,
 		MatMomentDateModule,
-		MatCheckboxModule
+		MatCheckboxModule,
+		MatChipsModule
 	]
 })
 export class AngularMaterialModule { }

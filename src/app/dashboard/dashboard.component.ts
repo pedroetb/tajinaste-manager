@@ -5,7 +5,7 @@ import { PersonService } from '../person.service';
 @Component({
 	selector: 'app-dashboard',
 	templateUrl: './dashboard.component.html',
-	styleUrls: [ './dashboard.component.css' ]
+	styleUrls: [ './dashboard.component.styl' ]
 })
 export class DashboardComponent implements OnInit {
 
@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
 
 	getPeople(): void {
 
-		this.personService.getPeople()
-			.subscribe(people => this.people = people.slice(0, 5));
+		this.personService.getPeople('&regular=eq.true')
+			.subscribe(people => this.people = people);
 	}
 }

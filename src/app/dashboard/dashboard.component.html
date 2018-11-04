@@ -1,12 +1,36 @@
-<h3>{{ 'dashboardTitle' | i18n | titlecase }}</h3>
-<div class="grid grid-pad">
-	<a *ngFor="let person of people"
-		class="col-1-4"
-		routerLink="/people/{{person.id}}">
-		<div class="module person">
-			<h4>{{person.name}}</h4>
-		</div>
-	</a>
-</div>
+<mat-toolbar>
+	<h2>{{ 'dashboardTitle' | i18n | titlecase }}</h2>
+</mat-toolbar>
 
-<app-person-search></app-person-search>
+<div class="cardContainer">
+	<mat-card *ngFor="let person of people">
+		<mat-card-header>
+			<div mat-card-avatar>
+				<mat-icon>person</mat-icon>
+			</div>
+			<mat-card-title>{{person.name}}</mat-card-title>
+			<mat-card-subtitle>{{ 'since' | i18n }} {{person.entry}}</mat-card-subtitle>
+		</mat-card-header>
+		<img mat-card-image
+			src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+			alt="Photo of a Shiba Inu">
+		<mat-card-content>
+			{{person.name}} {{person.surname}}
+		</mat-card-content>
+		<mat-chip-list>
+			<mat-chip color="accent" [selected]="person.federated">
+				<ng-container *ngIf="!person.federated">
+					{{ 'no' | i18n }}
+				</ng-container>
+				{{ 'federated' | i18n }}
+			</mat-chip>
+		</mat-chip-list>
+		<mat-card-actions>
+			<button mat-button color="primary"
+				matTooltip="{{'details' | i18n}}"
+				routerLink="/people/{{person.id}}">
+				{{ 'details' | i18n | titlecase }}
+			</button>
+		</mat-card-actions>
+	</mat-card>
+</div>

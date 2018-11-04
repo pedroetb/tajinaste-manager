@@ -11,7 +11,6 @@ import { PeopleListComponent } from './people-list/people-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PersonSearchComponent } from './person-search/person-search.component';
 import { I18nPipe } from './i18n/i18n.pipe';
 import { AppInitializerProviders } from './app-initializers';
 import { HttpInterceptorProviders } from './http-interceptors';
@@ -31,7 +30,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 		PersonEditionComponent,
 		MessagesComponent,
 		DashboardComponent,
-		PersonSearchComponent,
 		I18nPipe,
 		LoginComponent,
 		TopbarComponent,

@@ -61,7 +61,8 @@ export class PersonService {
 		name: 'entry',
 		public: true
 	},{
-		name: 'regular'
+		name: 'regular',
+		public: true
 	},{
 		name: 'federated',
 		public: true
@@ -76,9 +77,9 @@ export class PersonService {
 		private authService: AuthService
 	) { }
 
-	getPeople(): Observable<Person[]> {
+	getPeople(query: string = ''): Observable<Person[]> {
 
-		const url = `${this.url}?select=${this.getFieldNames()}`;
+		const url = `${this.url}?select=${this.getFieldNames()}${query}`;
 
 		return this.http.get<Person[]>(url)
 			.pipe(
@@ -135,21 +136,6 @@ export class PersonService {
 			.pipe(
 				tap(() => this.log(`deleted person id=${id}`)),
 				catchError(this.handleError<Person>('deletePerson'))
-			);
-	}
-
-	searchPeople(term: string): Observable<Person[]> {
-
-		const nameValue = term.trim();
-		if (!nameValue) {
-			return of([]);
-		}
-		const url = `${this.url}?select=${this.getFieldNames()}&name=ilike.*${nameValue}*`;
-
-		return this.http.get<Person[]>(url)
-			.pipe(
-				tap(() => this.log(`found people matching "${nameValue}"`)),
-				catchError(this.handleError<Person[]>('searchPeople', []))
 			);
 	}
 
