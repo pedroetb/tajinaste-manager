@@ -1,10 +1,10 @@
+.loginContainer
+	padding 64px 16px
+
 mat-card
 	max-width 400px
-	margin 2em auto
+	margin 32px auto
 	text-align center
-
-.loginContainer
-	padding 60px 1rem
 
 .fullWidthInput
 	width 100%
@@ -12,3 +12,23 @@ mat-card
 mat-card-footer
 	display flex
 	justify-content flex-end
+
+.loginBackground
+	position absolute
+	width 100%
+	height 100%
+
+	background linear-gradient(-45deg, rgba(#ff4081, .5), rgba(#3f51b5, .5), #fff)
+	background-size 400% 400%
+	animation gradient 100s ease infinite
+	animation-delay 3s
+
+@keyframes gradient
+	0%
+		background-position 0% 0%
+
+	50%
+		background-position 100% 100%
+
+	100%
+		background-position 0% 0%

@@ -1,23 +1,33 @@
+<div class="loginBackground">
+</div>
 <div class="loginContainer">
 	<mat-card>
-		<form [formGroup]="form" (ngSubmit)="login()">
-			<mat-form-field class="fullWidthInput">
-				<input matInput required
-					placeholder="{{ 'email' | i18n | capitalize }}"
-					autocomplete="username"
-					formControlName="email">
-			</mat-form-field>
-			<mat-form-field class="fullWidthInput">
-				<input matInput required
-					type="password"
-					placeholder="{{ 'password' | i18n | capitalize }}"
-					autocomplete="current-password"
-					formControlName="password">
-			</mat-form-field>
-			<button mat-raised-button color="primary" [disabled]="!form.valid">
+		<mat-card-content>
+			<form [formGroup]="form">
+				<mat-form-field class="fullWidthInput">
+					<input matInput required
+						placeholder="{{ 'email' | i18n | capitalize }}"
+						autocomplete="username"
+						formControlName="email"
+						(keydown.enter)="form.valid && login()">
+				</mat-form-field>
+				<mat-form-field class="fullWidthInput">
+					<input matInput required
+						type="password"
+						placeholder="{{ 'password' | i18n | capitalize }}"
+						autocomplete="current-password"
+						formControlName="password"
+						(keydown.enter)="form.valid && login()">
+				</mat-form-field>
+			</form>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-raised-button color="primary"
+				(click)="login()"
+				[disabled]="!form.valid">
 				{{ 'submit' | i18n | capitalize }}
 			</button>
-		</form>
+		</mat-card-actions>
 		<mat-card-footer>
 			<app-language-menu></app-language-menu>
 		</mat-card-footer>
