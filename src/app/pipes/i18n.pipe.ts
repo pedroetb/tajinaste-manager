@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { I18nService } from './i18n.service';
+import { I18nService } from '../i18n/i18n.service';
 
 @Pipe({
 	name: 'i18n',

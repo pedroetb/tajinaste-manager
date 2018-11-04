@@ -1,5 +1,5 @@
 <mat-nav-list>
 	<a mat-list-item *ngFor="let link of links | keyvalue" [routerLink]="link.value">
-		{{link.key | i18n | titlecase}}
+		{{link.key | i18n | capitalize}}
 	</a>
 </mat-nav-list>

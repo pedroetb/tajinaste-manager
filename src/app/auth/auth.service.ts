@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap, shareReplay } from 'rxjs/operators';
 
-import { MessageService } from './message.service';
+import { MessageService } from '../message/message.service';
 
 @Injectable({
 	providedIn: 'root'

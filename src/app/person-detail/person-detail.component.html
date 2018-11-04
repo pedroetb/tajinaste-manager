@@ -3,7 +3,7 @@
 		<mat-icon>undo</mat-icon>
 	</button>
 	<ng-container *ngIf="person">
-		<h2>{{'person details' | i18n | titlecase}}</h2>
+		<h2>{{'person details' | i18n | capitalize}}</h2>
 		<ng-container *ngIf="authService.isAdmin()">
 			<button mat-icon-button color="accent"
 				matTooltip="{{'edit' | i18n}}"

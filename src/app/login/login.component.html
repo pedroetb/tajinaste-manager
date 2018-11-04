@@ -3,19 +3,19 @@
 		<form [formGroup]="form" (ngSubmit)="login()">
 			<mat-form-field class="fullWidthInput">
 				<input matInput required
-					placeholder="{{ 'email' | i18n | titlecase }}"
+					placeholder="{{ 'email' | i18n | capitalize }}"
 					autocomplete="username"
 					formControlName="email">
 			</mat-form-field>
 			<mat-form-field class="fullWidthInput">
 				<input matInput required
 					type="password"
-					placeholder="{{ 'password' | i18n | titlecase }}"
+					placeholder="{{ 'password' | i18n | capitalize }}"
 					autocomplete="current-password"
 					formControlName="password">
 			</mat-form-field>
 			<button mat-raised-button color="primary" [disabled]="!form.valid">
-				{{ 'submit' | i18n | titlecase }}
+				{{ 'submit' | i18n | capitalize }}
 			</button>
 		</form>
 		<mat-card-footer>

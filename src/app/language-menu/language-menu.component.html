@@ -4,6 +4,6 @@
 <mat-menu #menu="matMenu">
 	<button mat-menu-item *ngFor="let language of languages | keyvalue"
 		(click)="setLang(language.key)">
-		<span>{{language.value | i18n | titlecase}}</span>
+		<span>{{language.value | i18n | capitalize}}</span>
 	</button>
 </mat-menu>

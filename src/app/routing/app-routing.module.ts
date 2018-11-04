@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from './auth-guard';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { InnerLayoutComponent } from './layouts/inner-layout/inner-layout.component';
-import { OuterLayoutComponent } from './layouts/outer-layout/outer-layout.component';
-import { LoginComponent } from './login/login.component';
-import { PeopleListComponent } from './people-list/people-list.component';
-import { PersonDetailComponent }  from './person-detail/person-detail.component';
-import { PersonEditionComponent }  from './person-edition/person-edition.component';
+import { AuthGuard } from '../auth/auth-guard';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { InnerLayoutComponent } from '../layouts/inner-layout/inner-layout.component';
+import { OuterLayoutComponent } from '../layouts/outer-layout/outer-layout.component';
+import { LoginComponent } from '../login/login.component';
+import { PeopleListComponent } from '../people-list/people-list.component';
+import { PersonDetailComponent }  from '../person-detail/person-detail.component';
+import { PersonEditionComponent }  from '../person-edition/person-edition.component';
 
 const routes: Routes = [{
 	path: '',

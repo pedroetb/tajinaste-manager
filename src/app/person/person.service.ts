@@ -4,8 +4,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Person } from './person';
-import { MessageService } from './message.service';
-import { AuthService } from './auth.service';
+import { MessageService } from '../message/message.service';
+import { AuthService } from '../auth/auth.service';
 
 const writeHttpOptions = {
 	headers: new HttpHeaders({

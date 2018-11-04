@@ -8,10 +8,10 @@ import { AppComponent } from './app.component';
 import { PersonDetailComponent } from './person-detail/person-detail.component';
 import { PersonEditionComponent } from './person-edition/person-edition.component';
 import { PeopleListComponent } from './people-list/people-list.component';
-import { MessagesComponent } from './messages/messages.component';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './routing/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { I18nPipe } from './i18n/i18n.pipe';
+import { I18nPipe } from './pipes/i18n.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { AppInitializerProviders } from './app-initializers';
 import { HttpInterceptorProviders } from './http-interceptors';
 import { LoginComponent } from './login/login.component';
@@ -28,9 +28,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 		PeopleListComponent,
 		PersonDetailComponent,
 		PersonEditionComponent,
-		MessagesComponent,
 		DashboardComponent,
 		I18nPipe,
+		CapitalizePipe,
 		LoginComponent,
 		TopbarComponent,
 		OuterLayoutComponent,

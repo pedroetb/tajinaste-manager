@@ -1,6 +1,6 @@
 <mat-toolbar>
 	<div class="listToolbarLeft">
-		<h2>{{ 'people' | i18n | titlecase}}</h2>
+		<h2>{{ 'people' | i18n | capitalize}}</h2>
 		<button mat-icon-button color="primary"
 			*ngIf="authService.isAdmin()"
 			matTooltip="{{'add' | i18n}}"
@@ -21,7 +21,7 @@
 					<mat-list-option *ngIf="columnIsAllowed(column)"
 						[value]="column"
 						[selected]="column.show">
-						{{ column.name | i18n | titlecase}}
+						{{ column.name | i18n | capitalize}}
 					</mat-list-option>
 				</ng-container>
 			</mat-selection-list>
@@ -37,13 +37,13 @@
 				(ngModelChange)="onBooleanFilterChange($event)">
 				<mat-list-option *ngFor="let field of booleanColumns"
 					[value]="field">
-					{{ 'only' | i18n | titlecase}} {{ field | i18n}}
+					{{ 'only' | i18n | capitalize}} {{ field | i18n}}
 				</mat-list-option>
 			</mat-selection-list>
 		</mat-menu>
 
 		<mat-form-field class="textSearch">
-			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'filter' | i18n | titlecase}}">
+			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'filter' | i18n | capitalize}}">
 		</mat-form-field>
 	</div>
 </mat-toolbar>

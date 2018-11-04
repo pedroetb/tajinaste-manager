@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { PersonService } from '../person.service';
+import { PersonService } from '../person/person.service';
 
 @Component({
 	selector: 'app-person-edition',

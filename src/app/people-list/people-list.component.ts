@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatSortable, MatTableDataSource } from '@angular/material';
 
-import { Person } from '../person';
-import { PersonService } from '../person.service';
+import { Person } from '../person/person';
+import { PersonService } from '../person/person.service';
 import { I18nService } from '../i18n/i18n.service';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
 	selector: 'app-people-list',

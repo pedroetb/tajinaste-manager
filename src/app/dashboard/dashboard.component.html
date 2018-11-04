@@ -1,5 +1,5 @@
 <mat-toolbar>
-	<h2>{{ 'dashboardTitle' | i18n | titlecase }}</h2>
+	<h2>{{ 'dashboardTitle' | i18n | capitalize }}</h2>
 </mat-toolbar>
 
 <div class="cardContainer">
@@ -29,7 +29,7 @@
 			<button mat-button color="primary"
 				matTooltip="{{'details' | i18n}}"
 				routerLink="/people/{{person.id}}">
-				{{ 'details' | i18n | titlecase }}
+				{{ 'details' | i18n | capitalize }}
 			</button>
 		</mat-card-actions>
 	</mat-card>
