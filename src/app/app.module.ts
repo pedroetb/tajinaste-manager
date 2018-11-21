@@ -21,6 +21,7 @@ import { OuterLayoutComponent } from './layouts/outer-layout/outer-layout.compon
 import { InnerLayoutComponent } from './layouts/inner-layout/inner-layout.component';
 import { LanguageMenuComponent } from './language-menu/language-menu.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ReportGeneratorComponent } from './report-generator/report-generator.component';
 
 @NgModule({
 	declarations: [
@@ -36,7 +37,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 		OuterLayoutComponent,
 		InnerLayoutComponent,
 		LanguageMenuComponent,
-		SidebarComponent
+		SidebarComponent,
+		ReportGeneratorComponent
 	],
 	imports: [
 		BrowserModule,
