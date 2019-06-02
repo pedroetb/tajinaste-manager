@@ -3,6 +3,13 @@ version: '3.7'
 services:
   tajinaste-manager:
     image: ${TAJINASTE_MANAGER_IMAGE_NAME:-pedroetb/tajinaste-manager}:${TAJINASTE_MANAGER_IMAGE_TAG:-latest}
+    build:
+      context: ..
+      dockerfile: ${TAJINASTE_MANAGER_DOCKERFILE:-Dockerfile}
+      args:
+        NODE_IMAGE_TAG:
+        NGINX_IMAGE_TAG:
+        NG_BUILD_CONFIG_NAME:
     environment:
       API_ORIGIN:
       AUTH_ORIGIN:

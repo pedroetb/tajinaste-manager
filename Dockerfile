@@ -1,5 +1,5 @@
-ARG NODE_IMAGE_TAG=alpine
-ARG NGINX_IMAGE_TAG=alpine
+ARG NODE_IMAGE_TAG=current-alpine
+ARG NGINX_IMAGE_TAG=mainline-alpine
 
 
 FROM node:${NODE_IMAGE_TAG} as build
