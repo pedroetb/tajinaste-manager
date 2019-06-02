@@ -1,4 +1,4 @@
-ARG NODE_IMAGE_TAG=current-alpine
+ARG NODE_IMAGE_TAG=dubnium-alpine
 ARG NGINX_IMAGE_TAG=mainline-alpine
 
 
@@ -27,7 +27,8 @@ ENV API_ORIGIN=https://hostname/api \
 
 CMD ["sh", "-c", " \
   file=/etc/nginx/conf.d/default.conf ; \
-  envsubst < ${file} > ${file}.tmp && \
+  vars='${API_ORIGIN} ${AUTH_ORIGIN}' ; \
+  envsubst \"$vars\" < ${file} > ${file}.tmp && \
   mv ${file}.tmp ${file} && \
   nginx -g 'daemon off;' \
 "]
