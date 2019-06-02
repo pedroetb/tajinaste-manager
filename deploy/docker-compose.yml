@@ -15,6 +15,12 @@ services:
       AUTH_ORIGIN:
     networks:
       traefik-net:
+    healthcheck:
+      test: wget --spider -q http://localhost
+      interval: ${TAJINASTE_MANAGER_HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${TAJINASTE_MANAGER_HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${TAJINASTE_MANAGER_HEALTHCHECK_RETRIES:-3}
+      start_period: ${TAJINASTE_MANAGER_HEALTHCHECK_START_PERIOD:-1m}
     deploy:
       mode: replicated
       replicas: ${TAJINASTE_MANAGER_REPLICAS:-1}
