@@ -2,10 +2,10 @@ version: '3.7'
 
 services:
   tajinaste-manager:
-    image: ${TAJINASTE_MANAGER_IMAGE_NAME:-pedroetb/tajinaste-manager}:${TAJINASTE_MANAGER_IMAGE_TAG:-latest}
+    image: ${IMAGE_NAME:-pedroetb/tajinaste-manager}:${IMAGE_TAG:-latest}
     build:
       context: ..
-      dockerfile: ${TAJINASTE_MANAGER_DOCKERFILE:-Dockerfile}
+      dockerfile: ${DOCKERFILE:-Dockerfile}
       args:
         NODE_IMAGE_TAG:
         NGINX_IMAGE_TAG:
@@ -17,27 +17,28 @@ services:
       traefik-net:
     healthcheck:
       test: wget --spider -q http://localhost
-      interval: ${TAJINASTE_MANAGER_HEALTHCHECK_INTERVAL:-30s}
-      timeout: ${TAJINASTE_MANAGER_HEALTHCHECK_TIMEOUT:-30s}
-      retries: ${TAJINASTE_MANAGER_HEALTHCHECK_RETRIES:-3}
-      start_period: ${TAJINASTE_MANAGER_HEALTHCHECK_START_PERIOD:-1m}
+      interval: ${HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${HEALTHCHECK_RETRIES:-3}
+      start_period: ${HEALTHCHECK_START_PERIOD:-1m}
     deploy:
       mode: replicated
-      replicas: ${TAJINASTE_MANAGER_REPLICAS:-1}
+      replicas: ${REPLICAS:-1}
       labels:
-        traefik.frontend.rule: Host:${TAJINASTE_MANAGER_PUBLIC_HOSTNAME}
+        traefik.frontend.rule: Host:${TRAEFIK_SUBDOMAIN}.${TRAEFIK_DOMAIN}
         traefik.backend: tajinaste-manager
         traefik.port: '80'
       restart_policy:
-        delay: ${TAJINASTE_MANAGER_RESTART_DELAY:-10s}
-        window: ${TAJINASTE_MANAGER_RESTART_WINDOW:-1m}
+        delay: ${RESTART_DELAY:-10s}
+      update_config:
+        delay: ${UPDATE_DELAY:-1m}
       resources:
         limits:
-          cpus: '${TAJINASTE_MANAGER_LIMITS_CPUS:-1}'
-          memory: ${TAJINASTE_MANAGER_LIMITS_MEMORY:-32M}
+          cpus: '${RESOURCES_LIMITS_CPUS:-1}'
+          memory: ${RESOURCES_LIMITS_MEMORY:-32M}
         reservations:
-          cpus: '${TAJINASTE_MANAGER_RESERVATIONS_CPUS:-0.001}'
-          memory: ${TAJINASTE_MANAGER_RESERVATIONS_MEMORY:-8M}
+          cpus: '${RESOURCES_RESERVATIONS_CPUS:-0.001}'
+          memory: ${RESOURCES_RESERVATIONS_MEMORY:-8M}
 
 networks:
   traefik-net:

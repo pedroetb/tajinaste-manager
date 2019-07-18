@@ -1,11 +1,9 @@
-.git*
+.*
 node_modules
 dist
 e2e
-.editorconfig
+deploy
 tslint.json
 *.md
 LICENSE
 Dockerfile
-.dockerignore
-docker-compose.yml

@@ -1,8 +1,10 @@
-ARG NODE_IMAGE_TAG=dubnium-alpine
+ARG NODE_IMAGE_TAG=current-alpine
 ARG NGINX_IMAGE_TAG=mainline-alpine
 
 
 FROM node:${NODE_IMAGE_TAG} as build
+
+RUN apk add --no-cache git
 
 COPY package.json package-lock.json /build/
 WORKDIR /build
