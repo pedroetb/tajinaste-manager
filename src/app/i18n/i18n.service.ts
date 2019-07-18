@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { DateAdapter } from '@angular/material/core';
 
 import { MessageService } from '../message/message.service';
 
+import enI18n from '../../assets/i18n/en.json';
+import esI18n from '../../assets/i18n/es.json';
+
 @Injectable({
 	providedIn: 'root'
 })
 export class I18nService {
 
-	data: any = {};
-
 	languages = {
-		es: 'spanish',
-		en: 'english'
-	}
+		en: 'english',
+		es: 'spanish'
+	};
+
+	data = {
+		en: enI18n,
+		es: esI18n
+	};
+
+	currentLanguage = 'en';
 
 	constructor(
-		private http: HttpClient,
 		private messageService: MessageService,
 		private adapter: DateAdapter<any>
 	) { }
@@ -31,29 +37,25 @@ export class I18nService {
 
 	useLang(lang: string): Observable<{}> {
 
-		this.adapter.setLocale(lang);
-
-		if (!this.languages.hasOwnProperty(lang)) {
+		if (this.languages.hasOwnProperty(lang)) {
+			this.adapter.setLocale(lang);
+			this.currentLanguage = lang;
+		} else {
 			this.log(`language '${lang}' not found`);
 		}
 
-		const langPath = `assets/i18n/${lang}.json`;
-
-		return this.http.get<{}>(langPath)
-			.pipe(
-				tap(translation => this.data = Object.assign({}, translation || {})),
-				catchError(this.handleError<{}>('useLang', {}))
-			);
+		return of(lang);
 	}
 
 	translate(key: string) {
 
-		let value = this.data[key];
+		let value = this.data[this.currentLanguage][key];
 
 		if (!value) {
 			if (value === undefined) {
 				console.warn(`Tried to translate missing key '${key}'`);
 			}
+
 			return key;
 		}
 
@@ -63,18 +65,5 @@ export class I18nService {
 	private log(message: string) {
 
 		this.messageService.add(`I18nService: ${message}`);
-	}
-
-	private handleError<T> (operation = 'operation', result?: T) {
-
-		return (error: any): Observable<T> => {
-
-			// TODO: send the error to remote logging infrastructure
-			console.error(error); // log to console instead
-
-			this.log(`${operation} failed`);
-
-			return of(result as T);
-		};
 	}
 }

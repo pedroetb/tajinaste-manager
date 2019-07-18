@@ -19,7 +19,7 @@ export class ReportGeneratorComponent implements OnInit {
 
 	generateReport() {
 
-		const data = document.getElementsByTagName('mat-table')[0];
+		const data = <HTMLElement>document.getElementsByTagName('mat-table')[0];
 
 		html2canvas(data).then(canvas => {
 

@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment from "moment";
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
