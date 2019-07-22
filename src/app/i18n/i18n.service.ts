@@ -5,8 +5,8 @@ import { DateAdapter } from '@angular/material/core';
 
 import { MessageService } from '../message/message.service';
 
-import enI18n from '../../assets/i18n/en.json';
-import esI18n from '../../assets/i18n/es.json';
+import enI18n from './data/en.json';
+import esI18n from './data/es.json';
 
 @Injectable({
 	providedIn: 'root'
