@@ -48,5 +48,6 @@
 	"yes": "",
 	"no": "",
 	"clear": "",
-	"report": ""
+	"report": "",
+	"toggleSidebar": "menu"
 }
