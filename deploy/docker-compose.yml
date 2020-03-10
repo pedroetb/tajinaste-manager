@@ -9,29 +9,26 @@ services:
       args:
         NODE_IMAGE_TAG:
         NGINX_IMAGE_TAG:
+        GIT_VERSION:
         NG_BUILD_CONFIG_NAME:
     environment:
       API_ORIGIN:
       AUTH_ORIGIN:
     networks:
       traefik-net:
-    healthcheck:
-      test: wget --spider -q http://localhost
-      interval: ${HEALTHCHECK_INTERVAL:-30s}
-      timeout: ${HEALTHCHECK_TIMEOUT:-30s}
-      retries: ${HEALTHCHECK_RETRIES:-3}
-      start_period: ${HEALTHCHECK_START_PERIOD:-1m}
     deploy:
       mode: replicated
       replicas: ${REPLICAS:-1}
-      labels:
-        traefik.frontend.rule: Host:${TRAEFIK_SUBDOMAIN}.${TRAEFIK_DOMAIN}
-        traefik.backend: tajinaste-manager
-        traefik.port: '80'
       restart_policy:
         delay: ${RESTART_DELAY:-10s}
       update_config:
         delay: ${UPDATE_DELAY:-1m}
+      labels:
+        traefik.enable: 'true'
+        traefik.http.routers.tajinaste-manager.entrypoints: ${TRAEFIK_ENTRYPOINT:-https}
+        traefik.http.routers.tajinaste-manager.tls.certresolver: ${TRAEFIK_CERTRESOLVER:-default}
+        traefik.http.routers.tajinaste-manager.rule: Host(`${TRAEFIK_SUBDOMAIN}.${TRAEFIK_DOMAIN}`)
+        traefik.http.services.tajinaste-manager.loadbalancer.server.port: 80
       resources:
         limits:
           cpus: '${RESOURCES_LIMITS_CPUS:-1}'
@@ -43,4 +40,5 @@ services:
 networks:
   traefik-net:
     name: ${TRAEFIK_NET_NAME:-traefik-net}
+    driver: ${TRAEFIK_NET_DRIVER:-overlay}
     external: true
