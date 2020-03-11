@@ -16,6 +16,9 @@ stages:
   - post-package
   - deploy
 
+variables:
+  NG_BUILD_OUTPUT_PATH: dist
+
 build:
   stage: build
   image: ${BUILD_IMAGE_NAME}:${BUILD_IMAGE_TAG}
@@ -23,7 +26,6 @@ build:
     BUILD_IMAGE_NAME: tarampampam/node
     BUILD_IMAGE_TAG: 12.16-alpine
     NG_BUILD_CONFIG_NAME: production
-    NG_BUILD_OUTPUT_PATH: dist
   script:
     - npm i
     - npm run build -- -c ${NG_BUILD_CONFIG_NAME} --output-path ${NG_BUILD_OUTPUT_PATH}
@@ -39,6 +41,10 @@ build:
     - tags
   except:
     - schedules
+
+.docker-build:
+  variables:
+    DBLD_NG_BUILD_OUTPUT_PATH: ${NG_BUILD_OUTPUT_PATH}
 
 .deploy:
   variables:

@@ -8,7 +8,6 @@ services:
       dockerfile: ${DOCKERFILE:-Dockerfile}
       args:
         NGINX_IMAGE_TAG:
-        NG_BUILD_CONFIG_NAME:
         NG_BUILD_OUTPUT_PATH:
     environment:
       API_ORIGIN:
