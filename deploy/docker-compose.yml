@@ -7,10 +7,9 @@ services:
       context: ..
       dockerfile: ${DOCKERFILE:-Dockerfile}
       args:
-        NODE_IMAGE_TAG:
         NGINX_IMAGE_TAG:
-        GIT_VERSION:
         NG_BUILD_CONFIG_NAME:
+        NG_BUILD_OUTPUT_PATH:
     environment:
       API_ORIGIN:
       AUTH_ORIGIN:
